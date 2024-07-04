@@ -14,7 +14,7 @@ const FAQItem: React.FC<FAQItemProps> = ({ question, answer }) => {
         className="flex justify-between items-center w-full text-left py-4"
         onClick={() => setIsOpen(!isOpen)}
       >
-        <span className="font-medium text-gray-900">{question}</span>
+        <span className="font-medium text-gray-900 text-sm md:text-base">{question}</span>
         <span className="ml-6 flex-shrink-0">
           {isOpen ? (
             <svg
@@ -49,7 +49,7 @@ const FAQItem: React.FC<FAQItemProps> = ({ question, answer }) => {
       </button>
       {isOpen && (
         <div className="mt-2 pr-12">
-          <p className="text-gray-500">{answer}</p>
+          <p className="text-gray-500 text-sm md:text-base">{answer}</p>
         </div>
       )}
     </div>

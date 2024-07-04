@@ -26,17 +26,17 @@ const benefits = [
 ];
 
 const BenefitsTable: React.FC = () => (
-  <div className="bg-white rounded-lg shadow overflow-hidden">
+  <div className="overflow-x-auto bg-white rounded-lg shadow">
     <table className="w-full">
-      <thead>
-        <tr className="bg-gray-100">
-          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+      <thead className="bg-gray-100">
+        <tr>
+          <th className="px-4 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
             Programs
           </th>
-          <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+          <th className="px-4 sm:px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
             Referrer Bonus
           </th>
-          <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+          <th className="px-4 sm:px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
             Referee Bonus
           </th>
         </tr>
@@ -44,11 +44,13 @@ const BenefitsTable: React.FC = () => (
       <tbody className="bg-white divide-y divide-gray-200">
         {benefits.map((benefit, index) => (
           <tr key={index}>
-            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{benefit.program}</td>
-            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-right">
+            <td className="px-4 sm:px-6 py-4 text-sm text-gray-900">
+              <div className="sm:whitespace-normal">{benefit.program}</div>
+            </td>
+            <td className="px-4 sm:px-6 py-4 text-sm text-gray-500 text-right">
               ₹{benefit.referrerBonus}
             </td>
-            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-right">
+            <td className="px-4 sm:px-6 py-4 text-sm text-gray-500 text-right">
               ₹{benefit.refereeBonus}
             </td>
           </tr>

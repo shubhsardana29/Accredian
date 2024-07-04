@@ -7,9 +7,11 @@ const steps = [
 ];
 
 const ReferralSteps: React.FC = () => (
-  <section className="py-16">
+  <section className="py-12 md:py-16">
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 className="text-2xl font-semibold mb-12 text-center">How Do I Refer?</h2>
+      <h2 className="text-2xl md:text-3xl font-semibold mb-8 md:mb-12 text-center">
+        How Do I Refer?
+      </h2>
       <div className="flex justify-between items-start">
         {steps.map((step, index) => (
           <div key={index} className="flex flex-col items-center text-center w-1/3 px-4">

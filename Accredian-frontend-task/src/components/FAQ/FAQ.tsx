@@ -16,9 +16,11 @@ const faqs = [
 ];
 
 const FAQ: React.FC = () => (
-  <section className="py-16">
+  <section className="py-16 md:py-16">
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 className="text-2xl font-semibold mb-8">Frequently Asked Questions</h2>
+      <h2 className="text-2xl md:text-3xl font-semibold mb-8 text-center md:text-left">
+        Frequently Asked Questions
+      </h2>
       <div className="space-y-4">
         {faqs.map((faq, index) => (
           <FAQItem key={index} question={faq.question} answer={faq.answer} />
