@@ -1,20 +1,27 @@
 import React from 'react';
 
+interface ReferralStepsProps {
+  onReferClick: () => void;
+}
+
 const steps = [
   { title: 'Submit referrals easily via our website referral program' },
   { title: 'Earn rewards once your referral joins a course program' },
   { title: 'Your referral receives a discount on their program enrollment' },
 ];
 
-const ReferralSteps: React.FC = () => (
+const ReferralSteps: React.FC<ReferralStepsProps> = ({ onReferClick }) => (
   <section className="py-12 md:py-16">
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <h2 className="text-2xl md:text-3xl font-semibold mb-8 md:mb-12 text-center">
         How Do I Refer?
       </h2>
-      <div className="flex justify-between items-start">
+      <div className="flex flex-col md:flex-row justify-between items-start">
         {steps.map((step, index) => (
-          <div key={index} className="flex flex-col items-center text-center w-1/3 px-4">
+          <div
+            key={index}
+            className="flex flex-col items-center text-center w-full md:w-1/3 px-4 mb-8 md:mb-0"
+          >
             <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-4">
               <span className="text-blue-600 text-xl font-bold">{index + 1}</span>
             </div>
@@ -23,7 +30,10 @@ const ReferralSteps: React.FC = () => (
         ))}
       </div>
       <div className="text-center mt-12">
-        <button className="bg-blue-600 text-white px-6 py-3 rounded-full text-lg font-medium">
+        <button
+          onClick={onReferClick}
+          className="bg-blue-600 text-white px-6 py-3 rounded-full text-lg font-medium"
+        >
           Refer Now
         </button>
       </div>

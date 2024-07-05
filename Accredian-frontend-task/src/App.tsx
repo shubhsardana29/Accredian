@@ -23,8 +23,8 @@ const App: React.FC = () => {
       <Header />
       <main className="flex-grow">
         <HeroSection onReferClick={() => setIsModalOpen(true)} />
-        <ReferralSteps />
-        <ReferralBenefits />
+        <ReferralSteps onReferClick={() => setIsModalOpen(true)} />
+        <ReferralBenefits onReferClick={() => setIsModalOpen(true)} />
         <FAQ />
         <ContactSection />
       </main>
