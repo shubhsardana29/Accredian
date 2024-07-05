@@ -4,8 +4,8 @@
   "description": "",
   "main": "dist/server.js",
   "scripts": {
-    "start": "npx prisma generate && node ./dist/server.js",
-    "build": "tsc",
+    "start": "node ./dist/server.js",
+    "build": "npx prisma generate && tsc",
     "dev": "nodemon src/server.ts",
     "test": "jest"
   },
