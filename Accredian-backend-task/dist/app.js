@@ -10,7 +10,7 @@ const errorHandler_1 = require("./middlewares/errorHandler");
 const app = (0, express_1.default)();
 // CORS configuration
 app.use((0, cors_1.default)({
-    origin: 'http://localhost:5173',
+    origin: 'https://accredian.vercel.app',
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true
