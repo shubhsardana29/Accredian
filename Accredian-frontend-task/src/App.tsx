@@ -10,6 +10,13 @@ import ReferralModal from './components/ReferralModal/ReferralModal';
 
 const App: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [referralSuccess, setReferralSuccess] = useState(false);
+
+  const handleReferralSubmit = () => {
+    setIsModalOpen(false);
+    setReferralSuccess(true);
+    setTimeout(() => setReferralSuccess(false), 5000); // Hide success message after 5 seconds
+  };
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -22,7 +29,17 @@ const App: React.FC = () => {
         <ContactSection />
       </main>
       <Footer />
-      {isModalOpen && <ReferralModal onClose={() => setIsModalOpen(false)} />}
+      {isModalOpen && (
+        <ReferralModal
+          onClose={() => setIsModalOpen(false)}
+          onSubmitSuccess={handleReferralSubmit}
+        />
+      )}
+      {referralSuccess && (
+        <div className="fixed bottom-4 right-4 bg-green-500 text-white px-4 py-2 rounded shadow-lg">
+          Referral submitted successfully!
+        </div>
+      )}
     </div>
   );
 };

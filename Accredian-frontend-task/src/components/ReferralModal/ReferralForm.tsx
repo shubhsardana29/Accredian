@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
+import axios, { AxiosError } from 'axios';
 
 const schema = z.object({
   referrerName: z.string().min(1, 'Referrer name is required'),
@@ -14,26 +15,67 @@ type FormData = z.infer<typeof schema>;
 
 interface ReferralFormProps {
   onClose: () => void;
+  onSubmitSuccess: () => void;
 }
 
-const ReferralForm: React.FC<ReferralFormProps> = ({ onClose }) => {
+interface ApiError {
+  errors?: { field: string; message: string }[];
+  message?: string;
+}
+
+const ReferralForm: React.FC<ReferralFormProps> = ({ onClose, onSubmitSuccess }) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [serverError, setServerError] = useState<string | null>(null);
+
   const {
     register,
     handleSubmit,
     formState: { errors },
+    setError,
   } = useForm<FormData>({
     resolver: zodResolver(schema),
   });
 
-  const onSubmit = (data: FormData) => {
-    console.log(data);
-    // Here you would typically send the data to your backend
-    // After successful submission, close the modal
-    onClose();
+  const onSubmit = async (data: FormData) => {
+    setIsSubmitting(true);
+    setServerError(null);
+
+    try {
+      await axios.post('https://accredian-nphg.onrender.com/api/referrals/submit', data);
+      onSubmitSuccess();
+      onClose();
+    } catch (error) {
+      console.error('Error submitting referral:', error);
+      if (axios.isAxiosError(error)) {
+        const axiosError = error as AxiosError<ApiError>;
+        if (axiosError.response?.data?.errors) {
+          axiosError.response.data.errors.forEach((err) => {
+            setError(err.field as keyof FormData, { message: err.message });
+          });
+        } else {
+          setServerError(
+            axiosError.response?.data?.message || 'An error occurred. Please try again.',
+          );
+        }
+      } else {
+        setServerError('An unexpected error occurred. Please try again.');
+      }
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+      {serverError && (
+        <div
+          className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
+          role="alert"
+        >
+          <span className="block sm:inline">{serverError}</span>
+        </div>
+      )}
+
       <div>
         <label htmlFor="referrerName" className="block text-sm font-medium text-gray-700">
           Your Name
@@ -99,14 +141,16 @@ const ReferralForm: React.FC<ReferralFormProps> = ({ onClose }) => {
           type="button"
           onClick={onClose}
           className="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+          disabled={isSubmitting}
         >
           Cancel
         </button>
         <button
           type="submit"
           className="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+          disabled={isSubmitting}
         >
-          Submit
+          {isSubmitting ? 'Submitting...' : 'Submit'}
         </button>
       </div>
     </form>
