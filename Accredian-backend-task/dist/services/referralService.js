@@ -23,8 +23,5 @@ const createReferral = (referralData) => __awaiter(void 0, void 0, void 0, funct
         console.error('Error creating referral:', error);
         throw error;
     }
-    finally {
-        yield prisma.$disconnect();
-    }
 });
 exports.createReferral = createReferral;
