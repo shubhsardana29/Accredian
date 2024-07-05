@@ -87,7 +87,7 @@ The backend server will start on `http://localhost:3000`.
 
 1. Navigate to the frontend directory:
    ```bash
-    cd ../Accredian-backend-task
+    cd ../Accredian-frontend-task
    ```
 2. Install dependencies:
    ```bash
