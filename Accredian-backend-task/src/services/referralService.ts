@@ -11,7 +11,5 @@ export const createReferral = async (referralData: any) => {
   } catch (error) {
     console.error('Error creating referral:', error);
     throw error;
-  } finally {
-    await prisma.$disconnect(); 
-  }
+  } 
 };
